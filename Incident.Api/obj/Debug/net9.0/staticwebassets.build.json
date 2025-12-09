@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "nWCCXYJQIBvMdKaxxyDPF4hsTeVKu30GglCMKZAEuDw=",
+  "Source": "Incident.Api",
+  "BasePath": "_content/Incident.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

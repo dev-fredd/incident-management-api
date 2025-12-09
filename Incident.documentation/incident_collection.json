@@ -1,0 +1,113 @@
+{
+  "info": {
+    "name": "Incident Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Incident",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "http://localhost:5241/api/Incidents",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5241",
+          "path": ["api", "Incidents"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Server down\",\n  \"description\": \"API not responding\",\n  \"userId\": \"00000000-0000-0000-0000-000000000001\",\n  \"categoryId\": \"00000000-0000-0000-0000-000000000002\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Get Incident by ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:5241/api/Incidents/{{incidentId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5241",
+          "path": ["api", "Incidents", "{{incidentId}}"]
+        }
+      }
+    },
+    {
+      "name": "Get All Incidents",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:5241/api/Incidents",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5241",
+          "path": ["api", "Incidents"]
+        }
+      }
+    },
+    {
+      "name": "Update Incident",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "http://localhost:5241/api/Incidents/{{incidentId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5241",
+          "path": ["api", "Incidents", "{{incidentId}}"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Updated incident\",\n  \"description\": \"New description\",\n  \"status\": 1\n}"
+        }
+      }
+    },
+    {
+      "name": "Delete Incident",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:5241/api/Incidents/{{incidentId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5241",
+          "path": ["api", "Incidents", "{{incidentId}}"]
+        }
+      }
+    },
+    {
+      "name": "Add Comment to Incident",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "http://localhost:5241/api/Incidents/{{incidentId}}/comments",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5241",
+          "path": ["api", "Incidents", "{{incidentId}}", "comments"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"author\": \"Admin\",\n  \"message\": \"Revisando el incidente\"\n}"
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "incidentId",
+      "value": "00000000-0000-0000-0000-000000000003"
+    }
+  ]
+}
