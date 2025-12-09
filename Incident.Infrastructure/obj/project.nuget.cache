@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "OAEnNKNE5M0=",
+  "dgSpecHash": "va5u95JyMbU=",
   "success": true,
   "projectFilePath": "C:\\Users\\facaballero\\Documents\\Proyectos\\Nexos\\code\\incident-management-api\\Incident.Infrastructure\\Incident.Infrastructure.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\facaballero\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512",
     "C:\\Users\\facaballero\\.nuget\\packages\\mediatr\\11.1.0\\mediatr.11.1.0.nupkg.sha512",
     "C:\\Users\\facaballero\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
     "C:\\Users\\facaballero\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\11.1.0\\mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",

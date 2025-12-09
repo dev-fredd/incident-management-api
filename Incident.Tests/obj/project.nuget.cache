@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "M23iQ574bEU=",
+  "dgSpecHash": "jpJG67dOkC8=",
   "success": true,
   "projectFilePath": "C:\\Users\\facaballero\\Documents\\Proyectos\\Nexos\\code\\incident-management-api\\Incident.Tests\\Incident.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\facaballero\\.nuget\\packages\\coverlet.collector\\6.0.2\\coverlet.collector.6.0.2.nupkg.sha512",
+    "C:\\Users\\facaballero\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512",
     "C:\\Users\\facaballero\\.nuget\\packages\\mediatr\\11.1.0\\mediatr.11.1.0.nupkg.sha512",
     "C:\\Users\\facaballero\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
     "C:\\Users\\facaballero\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\11.1.0\\mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",

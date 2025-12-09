@@ -5,28 +5,34 @@ using Incident.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Incident.Application.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Serilog
+
 builder.Host.UseSerilog((ctx, lc) =>
     lc.WriteTo.Console()
       .ReadFrom.Configuration(ctx.Configuration));
 
-// DB InMemory
+
 builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseInMemoryDatabase("IncidentsDb"));
 
-// Repos
+
 builder.Services.AddScoped<IIncidentRepository, IncidentRepository>();
 
-// MediatR
+
 builder.Services.AddMediatR(typeof(CreateIncidentHandler).Assembly);
 
-// Controllers
+
 builder.Services.AddControllers();
 
-// Swagger
+builder.Services.AddValidatorsFromAssemblyContaining<CreateIncidentValidator>();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -34,7 +40,7 @@ var app = builder.Build();
 
 app.UseSerilogRequestLogging();
 
-// Swagger UI
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
