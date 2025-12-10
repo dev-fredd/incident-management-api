@@ -6,6 +6,7 @@ using Incident.Application.Queries.GetIncidentById;
 using Incident.Application.Queries.GetAllIncidents;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Incident.Api.Requests;
 
 namespace Incident.Api.Controllers;
 
@@ -47,9 +48,11 @@ public class IncidentsController : ControllerBase
 
     // UPDATE
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> UpdateIncident(Guid id, [FromBody] UpdateIncidentCommand command)
+    public async Task<IActionResult> UpdateIncident(Guid id, [FromBody] UpdateIncidentRequest request)
     {
-        var result = await _mediator.Send(command with { Id = id });
+        var command = new UpdateIncidentCommand(id,request.Title,request.Description,request.Status);
+        
+        var result = await _mediator.Send(command);
         return result ? Ok() : NotFound();
     }
 
