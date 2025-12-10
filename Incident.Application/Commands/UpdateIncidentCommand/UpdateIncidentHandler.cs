@@ -16,7 +16,7 @@ public class UpdateIncidentHandler : IRequestHandler<UpdateIncidentCommand, bool
     {
         var incident = await _repo.GetByIdAsync(request.Id);
         if (incident == null) return false;
-
+        Console.WriteLine($"incident {incident}");
         incident.Update(request.Title, request.Description);
         incident.ChangeStatus(request.Status);
 

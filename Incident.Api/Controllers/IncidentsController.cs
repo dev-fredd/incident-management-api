@@ -66,9 +66,10 @@ public class IncidentsController : ControllerBase
 
     // ADD COMMENT
     [HttpPost("{id:guid}/comments")]
-    public async Task<IActionResult> AddComment(Guid id, [FromBody] AddCommentCommand command)
+    public async Task<IActionResult> AddComment(Guid id, [FromBody] AddCommentRequest request)
     {
-        var result = await _mediator.Send(command with { IncidentId = id });
+        var command  = new AddCommentCommand(id,request.Autor,request.Message);
+        var result = await _mediator.Send(command);
         return result ? Ok() : NotFound();
     }
 }
