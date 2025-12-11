@@ -1,3 +1,4 @@
+using Incident.Domain.Enums;
 using Incident.Domain.Interfaces;
 using MediatR;
 
@@ -14,6 +15,7 @@ public class UpdateIncidentHandler : IRequestHandler<UpdateIncidentCommand, bool
 
     public async Task<bool> Handle(UpdateIncidentCommand request, CancellationToken ct)
     {
+
         var incident = await _repo.GetByIdAsync(request.Id);
         if (incident == null) return false;
         Console.WriteLine($"incident {incident}");

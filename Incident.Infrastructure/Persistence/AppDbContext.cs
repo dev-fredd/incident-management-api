@@ -11,4 +11,14 @@ public class AppDbContext : DbContext
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options) { }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<IncidentEntity>().HasMany((incident) => incident.Comments).WithOne().HasForeignKey((comment) => comment.IncidentId);
+        modelBuilder.Entity<CommentEntity>().Property(e => e.Id).ValueGeneratedNever();
+        
+
+        base.OnModelCreating(modelBuilder);
+
+    }
 }

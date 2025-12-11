@@ -8,6 +8,8 @@ using Serilog;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Incident.Application.Validators;
+using Incident.Api.Middleware;
+using Incident.Application.Behaviors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +38,12 @@ builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateIncidentValidator>();
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+
 var app = builder.Build();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseSerilogRequestLogging();
 

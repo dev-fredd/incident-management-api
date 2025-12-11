@@ -24,9 +24,9 @@ public class IncidentRepository : IIncidentRepository
         => await _context.Incidents
                 .Include(i => i.Comments)
                 .FirstOrDefaultAsync(i => i.Id == id);
-
     public Task UpdateAsync(IncidentEntity incident)
     {
+
         _context.Incidents.Update(incident);
         return Task.CompletedTask;
     }

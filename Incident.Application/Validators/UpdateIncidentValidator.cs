@@ -8,6 +8,9 @@ public class UpdateIncidentValidator : AbstractValidator<UpdateIncidentCommand>
 {
     public UpdateIncidentValidator()
     {
+        RuleFor(x => x.Status)
+            .IsInEnum().WithMessage("El estado del incidente no es válido.");
+            
         RuleFor(x => x.Id)
             .NotEmpty().WithMessage("El Id del incidente es obligatorio.");
 

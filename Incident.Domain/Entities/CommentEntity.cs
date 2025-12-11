@@ -11,6 +11,7 @@ public class CommentEntity
 
     public CommentEntity(Guid incidentId, string author, string message)
     {
+        Id = Guid.NewGuid();
         IncidentId = incidentId;
         Author = author;
         Message = message;

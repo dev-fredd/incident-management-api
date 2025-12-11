@@ -21,7 +21,6 @@ public class IncidentsController : ControllerBase
         _mediator = mediator;
     }
 
-    // CREATE
     [HttpPost]
     public async Task<IActionResult> CreateIncident([FromBody] CreateIncidentCommand command)
     {
@@ -29,7 +28,7 @@ public class IncidentsController : ControllerBase
         return CreatedAtAction(nameof(GetIncidentById), new { id }, new { id });
     }
 
-    // GET BY ID
+
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetIncidentById(Guid id)
     {
@@ -38,7 +37,7 @@ public class IncidentsController : ControllerBase
         return Ok(incident);
     }
 
-    // GET ALL
+
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -46,7 +45,7 @@ public class IncidentsController : ControllerBase
         return Ok(incidents);
     }
 
-    // UPDATE
+
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> UpdateIncident(Guid id, [FromBody] UpdateIncidentRequest request)
     {
@@ -56,7 +55,7 @@ public class IncidentsController : ControllerBase
         return result ? Ok() : NotFound();
     }
 
-    // DELETE
+
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteIncident(Guid id)
     {
@@ -64,11 +63,11 @@ public class IncidentsController : ControllerBase
         return result ? NoContent() : NotFound();
     }
 
-    // ADD COMMENT
+
     [HttpPost("{id:guid}/comments")]
     public async Task<IActionResult> AddComment(Guid id, [FromBody] AddCommentRequest request)
     {
-        var command  = new AddCommentCommand(id,request.Autor,request.Message);
+        var command  = new AddCommentCommand(id,request.Author,request.Message);
         var result = await _mediator.Send(command);
         return result ? Ok() : NotFound();
     }

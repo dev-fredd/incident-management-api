@@ -11,7 +11,7 @@ public class IncidentEntity
     public Guid CategoryId { get; private set; }
     public IncidentStatus Status { get; private set; } = IncidentStatus.Open;
     
-    public List<CommentEntity> Comments { get; private set; } = new();
+    public virtual List<CommentEntity> Comments { get; private set; } = new();
 
     public IncidentEntity(string title, string description, Guid userId, Guid categoryId)
     {
@@ -34,6 +34,6 @@ public class IncidentEntity
 
     public void AddComment(string author, string message)
     {
-        Comments.Add(new CommentEntity(Id, author, message));
+        Comments.Add(new CommentEntity(Id,author, message));
     }
 }

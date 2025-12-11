@@ -1,9 +1,16 @@
-﻿using Incident.Application.Commands.CreateIncident;
+﻿using FluentValidation;
+using Incident.Application.Behaviors;
+using Incident.Application.Commands.CreateIncident;
+using Incident.Application.Commands.UpdateIncident;
+using Incident.Application.Validators;
 using Incident.Domain.Entities;
+using Incident.Domain.Enums;
 using Incident.Domain.Interfaces;
 using Incident.Infrastructure.Persistence;
 using Incident.Infrastructure.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 public class IncidentTests
 {
@@ -15,6 +22,20 @@ public class IncidentTests
 
         return new AppDbContext(options);
     }
+
+    private ServiceProvider BuildServiceProvider()
+    {
+        var services = new ServiceCollection();
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
+        services.AddScoped<IIncidentRepository, IncidentRepository>();
+        services.AddMediatR(typeof(UpdateIncidentHandler).Assembly);
+        services.AddValidatorsFromAssemblyContaining<UpdateIncidentValidator>();
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+        return services.BuildServiceProvider();
+    }
+
 
     [Fact]
     public async Task CreateIncident_ShouldCreateCorrectly()
@@ -34,4 +55,35 @@ public class IncidentTests
 
         Assert.NotEqual(Guid.Empty, id);
     }
+
+
+    [Fact]
+    public async Task UpdateIncident_Fail_InvalidStatus()
+    {
+        var provider = BuildServiceProvider();
+        var mediator = provider.GetRequiredService<IMediator>();
+        var db = provider.GetRequiredService<AppDbContext>();
+
+        var incident = new IncidentEntity(
+            "title",
+            "desc",
+            Guid.NewGuid(),
+            Guid.NewGuid()
+        );
+        db.Incidents.Add(incident);
+        await db.SaveChangesAsync();
+
+        var invalidStatus = (IncidentStatus)50;
+
+        var cmd = new UpdateIncidentCommand(
+            incident.Id,
+            "new title",
+            "new description",
+            invalidStatus
+        );
+
+        await Assert.ThrowsAsync<ValidationException>(() => mediator.Send(cmd));
+    }
+
+
 }

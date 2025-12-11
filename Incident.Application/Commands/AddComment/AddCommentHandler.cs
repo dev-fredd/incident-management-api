@@ -1,3 +1,4 @@
+using Incident.Domain.Entities;
 using Incident.Domain.Interfaces;
 using MediatR;
 
@@ -14,12 +15,14 @@ public class AddCommentHandler : IRequestHandler<AddCommentCommand, bool>
 
     public async Task<bool> Handle(AddCommentCommand request, CancellationToken ct)
     {
+        Console.WriteLine($"incident: {request.IncidentId}");
         var incident = await _repo.GetByIdAsync(request.IncidentId);
         if (incident == null) return false;
 
-        incident.AddComment(request.Author, request.Message);
-
-        await _repo.UpdateAsync(incident);
+        var comment = new CommentEntity(request.IncidentId, request.Author, request.Message);
+        incident.Comments.Add(comment);
+        Console.WriteLine($"incident: {incident.Description}");
+        // await _repo.UpdateAsync(incident);
         await _repo.SaveChangesAsync();
 
         return true;
